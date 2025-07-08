@@ -112,25 +112,32 @@ const FileUpload = () => {
     try {
       // Update status to uploading
       setFiles(prev => prev.map((f, i) => 
-        i === index ? { ...f, status: 'uploading' } : f
+        i === index ? { ...f, status: 'uploading', progress: 20 } : f
       ));
 
       const fileName = `${Date.now()}-${fileData.file.name}`;
       const filePath = `${user.id}/${fileName}`;
 
+      // Simulate progress updates
+      const progressInterval = setInterval(() => {
+        setFiles(prev => prev.map((f, i) => 
+          i === index && f.status === 'uploading' ? { ...f, progress: Math.min(f.progress + 10, 80) } : f
+        ));
+      }, 200);
+
       // Upload to Supabase Storage
       const { error: uploadError } = await supabase.storage
         .from('user-files')
-        .upload(filePath, fileData.file, {
-          onUploadProgress: (progress) => {
-            const percentage = (progress.loaded / progress.total) * 100;
-            setFiles(prev => prev.map((f, i) => 
-              i === index ? { ...f, progress: percentage } : f
-            ));
-          }
-        });
+        .upload(filePath, fileData.file);
+
+      clearInterval(progressInterval);
 
       if (uploadError) throw uploadError;
+
+      // Update progress to 90%
+      setFiles(prev => prev.map((f, i) => 
+        i === index ? { ...f, progress: 90 } : f
+      ));
 
       // Save metadata to database
       const { error: dbError } = await supabase
