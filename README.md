@@ -1,45 +1,43 @@
 
-# CloudHub - Secure File Management System
+# CloudHub - Secure Cloud Storage Platform
 
-**Developed by: Shahid Afrid**
-
-CloudHub is a modern, secure file management web application built as a final year computer science project. It provides users with a comprehensive platform to upload, organize, and manage their files in the cloud with enterprise-grade security and a beautiful user interface.
+A modern, full-stack cloud storage application built for secure file management and sharing. CloudHub provides users with an intuitive interface to upload, manage, preview, and share files with advanced security features.
 
 ## 🚀 Features
 
 ### Core Functionality
-- **Secure Authentication**: Google OAuth integration with session management
-- **File Upload**: Drag-and-drop interface with progress tracking
-- **File Management**: View, download, and delete uploaded files
-- **File Type Classification**: Automatic categorization (Documents, Images, Others)
-- **Real-time Updates**: Live file status and progress indicators
-- **Advanced Search**: Filter and search through uploaded files
-
-### User Experience
-- **Dark/Light Mode**: Automatic theme switching with system preference detection
+- **Secure File Upload**: Drag-and-drop file uploads with progress tracking
+- **File Management**: Organize, search, and filter files by type
+- **In-Browser Previews**: View PDFs, images, videos, and audio files directly in the browser
+- **File Sharing**: Generate secure, time-limited shareable links with customizable permissions
+- **Dark/Light Mode**: Full theme support with system preference detection
 - **Responsive Design**: Optimized for desktop, tablet, and mobile devices
-- **Smooth Animations**: Modern transitions and micro-interactions
-- **Glass Morphism UI**: Contemporary design with backdrop blur effects
-- **Progressive Web App**: Fast loading and offline capabilities
 
 ### Security Features
-- **Row Level Security (RLS)**: Database-level access control
-- **File Type Validation**: Client and server-side validation
-- **User Isolation**: Each user can only access their own files
-- **Secure File Storage**: Files stored with unique paths and permissions
-- **Session Management**: Automatic session handling and cleanup
+- **Google OAuth Authentication**: Secure sign-in with Google accounts
+- **Row Level Security (RLS)**: Database-level security ensuring users can only access their own files
+- **Encrypted Storage**: Files are securely stored with Supabase's encrypted storage
+- **Permission-Based Sharing**: Control whether shared links allow viewing only or downloading
+- **Expiring Links**: Set automatic expiration times for shared links
+
+### User Experience
+- **Glass Morphism UI**: Modern, translucent design with smooth animations
+- **Real-time Progress**: Live upload progress with file size validation
+- **Smart File Organization**: Automatic file type categorization and metadata extraction
+- **Search & Filter**: Quickly find files with search and type-based filtering
+- **Storage Analytics**: View total storage usage and file statistics
 
 ## 🛠️ Technology Stack
 
 ### Frontend
 - **React 18** - Modern UI library with hooks and functional components
-- **TypeScript** - Type-safe JavaScript for better development experience
+- **TypeScript** - Type-safe development for better code quality
+- **Vite** - Fast build tool and development server
 - **Tailwind CSS** - Utility-first CSS framework for rapid styling
-- **Vite** - Next-generation frontend build tool
 - **Radix UI** - Accessible component primitives
-- **Lucide React** - Beautiful and consistent icons
-- **React Router** - Client-side routing
-- **TanStack Query** - Powerful data synchronization
+- **React Router** - Client-side routing for SPA navigation
+- **Tanstack Query** - Server state management and caching
+- **Date-fns** - Modern date utility library
 
 ### Backend & Database
 - **Supabase** - Backend-as-a-Service platform
@@ -48,45 +46,48 @@ CloudHub is a modern, secure file management web application built as a final ye
 - **Supabase Storage** - Secure file storage with CDN
 - **Row Level Security** - Database-level security policies
 
-### Development Tools
-- **ESLint** - Code linting and formatting
-- **PostCSS** - CSS processing and optimization
-- **TypeScript Compiler** - Static type checking
+### UI Components
+- **Shadcn/UI** - Re-usable component library built on Radix UI
+- **Lucide React** - Beautiful SVG icon library
+- **Sonner** - Toast notification system
+- **React Hook Form** - Performant form handling
+- **Zod** - TypeScript-first schema validation
 
 ## 📁 Project Structure
 
 ```
 src/
-├── components/           # Reusable UI components
-│   ├── ui/              # Base UI components (shadcn/ui)
-│   ├── Dashboard.tsx    # Main dashboard layout
-│   ├── FileUpload.tsx   # File upload functionality
-│   ├── FileList.tsx     # File listing and management
-│   ├── LoginPage.tsx    # Authentication interface
-│   ├── ThemeProvider.tsx # Theme management
-│   └── ThemeToggle.tsx  # Dark/light mode toggle
-├── hooks/               # Custom React hooks
-│   ├── useAuth.tsx      # Authentication logic
-│   └── use-toast.ts     # Toast notifications
-├── integrations/        # External service integrations
-│   └── supabase/        # Supabase client and types
-├── lib/                 # Utility functions
-├── pages/               # Page components
-└── App.tsx             # Main application component
+├── components/          # Reusable UI components
+│   ├── ui/             # Base UI components (shadcn/ui)
+│   ├── Dashboard.tsx   # Main dashboard layout
+│   ├── FileList.tsx    # File management interface
+│   ├── FileUpload.tsx  # File upload component
+│   ├── FilePreview.tsx # File preview component
+│   ├── ShareDialog.tsx # File sharing interface
+│   └── LoginPage.tsx   # Authentication page
+├── hooks/              # Custom React hooks
+│   ├── useAuth.tsx     # Authentication hook
+│   └── use-toast.ts    # Toast notification hook
+├── pages/              # Route components
+│   ├── Index.tsx       # Landing page
+│   ├── SharePage.tsx   # Public file sharing page
+│   └── NotFound.tsx    # 404 error page
+├── integrations/       # External service integrations
+│   └── supabase/       # Supabase client and types
+└── lib/                # Utility functions
 ```
 
-## 🚀 Getting Started
+## 🔧 Installation & Setup
 
 ### Prerequisites
-- Node.js (v18 or higher)
-- npm or yarn package manager
-- Supabase account for backend services
+- Node.js 18+ and npm/yarn
+- Supabase account and project
 
-### Installation
+### Environment Setup
 
 1. **Clone the repository**
    ```bash
-   git clone [repository-url]
+   git clone <repository-url>
    cd cloudhub
    ```
 
@@ -95,197 +96,186 @@ src/
    npm install
    ```
 
-3. **Environment Setup**
-   Create a `.env.local` file in the root directory:
-   ```env
-   VITE_SUPABASE_URL=your_supabase_project_url
-   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-   ```
-
-4. **Database Setup**
+3. **Configure Supabase**
    - Create a new Supabase project
-   - Run the SQL migrations provided in the `supabase/migrations` folder
-   - Configure Google OAuth in Supabase Auth settings
+   - Enable Google OAuth in Authentication settings
+   - Run the database migrations (see Database Schema section)
+   - Update `src/integrations/supabase/client.ts` with your project credentials
 
-5. **Start Development Server**
+4. **Start development server**
    ```bash
    npm run dev
    ```
 
-   The application will be available at `http://localhost:5173`
+### Database Schema
 
-### Production Build
-```bash
-npm run build
-npm run preview
+Run these SQL commands in your Supabase SQL editor:
+
+```sql
+-- Create profiles table for user data
+CREATE TABLE public.profiles (
+  id UUID NOT NULL REFERENCES auth.users ON DELETE CASCADE,
+  email TEXT,
+  full_name TEXT,
+  avatar_url TEXT,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (id)
+);
+
+-- Create uploaded_files table
+CREATE TABLE public.uploaded_files (
+  id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  file_name TEXT NOT NULL,
+  file_type TEXT NOT NULL,
+  file_size BIGINT NOT NULL,
+  storage_path TEXT NOT NULL,
+  uploaded_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+-- Create shared_links table for file sharing
+CREATE TABLE public.shared_links (
+  id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+  file_id UUID REFERENCES public.uploaded_files(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  permissions TEXT NOT NULL CHECK (permissions IN ('view', 'download')),
+  expires_at TIMESTAMP WITH TIME ZONE,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+-- Enable Row Level Security
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.uploaded_files ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.shared_links ENABLE ROW LEVEL SECURITY;
+
+-- Create storage bucket for user files
+INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+VALUES (
+  'user-files',
+  'user-files',
+  false,
+  52428800, -- 50MB limit
+  ARRAY['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/msword', 'text/plain', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
+);
 ```
-
-## 🔧 Configuration
-
-### Supabase Setup
-1. **Create Tables**: Run the migration files to set up the database schema
-2. **Storage Bucket**: Configure the `user-files` bucket with appropriate policies
-3. **Authentication**: Enable Google OAuth provider
-4. **Row Level Security**: Ensure RLS policies are active for data protection
-
-### Environment Variables
-| Variable | Description |
-|----------|-------------|
-| `VITE_SUPABASE_URL` | Your Supabase project URL |
-| `VITE_SUPABASE_ANON_KEY` | Your Supabase anonymous key |
-
-## 📊 Database Schema
-
-### Tables
-
-#### `profiles`
-- User profile information
-- Links to Supabase Auth users
-- Stores additional user metadata
-
-#### `uploaded_files`
-- File metadata and references
-- User ownership tracking
-- Upload timestamps and file information
-
-### Storage Buckets
-
-#### `user-files`
-- Secure file storage
-- User-specific folder structure
-- File type and size restrictions
 
 ## 🔐 Security Implementation
 
 ### Authentication
-- **Google OAuth 2.0**: Secure third-party authentication
-- **JWT Tokens**: Stateless session management
-- **Automatic Session Refresh**: Seamless user experience
+- Google OAuth integration for secure sign-in
+- JWT token management with automatic refresh
+- Session persistence across browser sessions
 
-### Data Protection
-- **Row Level Security**: Database-level access control
-- **User Isolation**: Complete data separation between users
-- **Secure File URLs**: Time-limited and authenticated file access
-- **Input Validation**: Client and server-side validation
+### Database Security
+- Row Level Security (RLS) policies ensure data isolation
+- Users can only access their own files and data
+- Secure file sharing with permission controls
 
-### File Security
-- **Type Validation**: Restricted file types for security
-- **Size Limits**: 50MB maximum file size
-- **Virus Scanning**: Integration ready for malware detection
-- **Access Control**: User-specific file permissions
+### File Storage Security
+- Files stored in private Supabase storage buckets
+- Signed URLs for secure file access
+- Automatic cleanup of expired shared links
 
 ## 🎨 Design System
 
-### Color Palette
-- **Primary**: Blue to Purple gradient
-- **Secondary**: Neutral grays with high contrast
-- **Accent**: Pink highlights for interactive elements
-- **Status**: Green (success), Red (error), Yellow (warning)
+### Theme Support
+- Light and dark mode with smooth transitions
+- System preference detection
+- Consistent color palette across all components
 
-### Typography
-- **Headings**: Bold, gradient text for emphasis
-- **Body**: Clear, readable fonts with proper hierarchy
-- **Code**: Monospace fonts for technical content
+### Glass Morphism Design
+- Translucent backgrounds with backdrop blur
+- Gradient borders and subtle shadows
+- Smooth animations and transitions
 
-### Components
-- **Glass Morphism**: Backdrop blur with transparency
-- **Animations**: Smooth transitions and micro-interactions
-- **Responsive**: Mobile-first design approach
-- **Accessibility**: ARIA labels and keyboard navigation
+### Responsive Layout
+- Mobile-first design approach
+- Flexible grid systems
+- Touch-friendly interface elements
 
-## 🧪 Testing
+## 📱 Responsive Design
 
-### Test Categories
-- **Unit Tests**: Component and function testing
-- **Integration Tests**: API and database interactions
-- **E2E Tests**: Complete user workflows
-- **Accessibility Tests**: WCAG compliance validation
+CloudHub is fully responsive and optimized for:
+- **Desktop**: Full feature set with multi-column layouts
+- **Tablet**: Adapted layouts with touch-optimized controls
+- **Mobile**: Streamlined interface with stack layouts
 
-### Running Tests
-```bash
-npm run test          # Unit tests
-npm run test:e2e      # End-to-end tests
-npm run test:coverage # Coverage reports
-```
+## 🔄 File Management Features
 
-## 📈 Performance Optimization
+### Upload System
+- Drag-and-drop file uploads
+- Multiple file selection
+- Real-time progress tracking
+- File type validation
+- Size limit enforcement (50MB)
 
-### Frontend Optimizations
-- **Code Splitting**: Dynamic imports for reduced bundle size
-- **Image Optimization**: WebP format with fallbacks
-- **Caching**: Service worker for offline functionality
-- **Lazy Loading**: Components loaded on demand
+### File Organization
+- Automatic file type categorization
+- Search functionality across file names
+- Filter by file type (documents, images, other)
+- Sort by upload date and size
 
-### Backend Optimizations
-- **Database Indexing**: Optimized queries for fast retrieval
-- **CDN Integration**: Global file delivery network
-- **Compression**: Gzip compression for reduced transfer size
-- **Caching Headers**: Browser and proxy caching
+### File Sharing
+- Generate secure shareable links
+- Set view-only or download permissions
+- Configure link expiration times
+- Track sharing analytics
 
-## 🚀 Deployment
+## 🚀 Performance Optimizations
 
-### Production Deployment
-1. **Build the application**: `npm run build`
-2. **Deploy to hosting platform** (Vercel, Netlify, etc.)
-3. **Configure environment variables** on the hosting platform
-4. **Set up custom domain** (optional)
-5. **Configure SSL certificate** for secure connections
+- **Lazy Loading**: Components and routes loaded on demand
+- **Image Optimization**: Automatic image compression and format conversion
+- **Caching**: Intelligent caching of file metadata and user data
+- **Code Splitting**: Separate bundles for different app sections
+- **Prefetching**: Predictive loading of user resources
 
-### Recommended Hosting Platforms
-- **Vercel**: Optimized for React and Next.js applications
-- **Netlify**: Easy deployment with Git integration
-- **AWS Amplify**: Scalable cloud hosting
-- **Railway**: Simple deployment with database integration
+## 🧪 Testing Strategy
 
-## 🔄 Future Enhancements
+### File Upload Testing
+- Test various file types and sizes
+- Validate progress tracking accuracy
+- Error handling for failed uploads
 
-### Planned Features
-- **File Sharing**: Share files with other users
-- **Collaboration**: Real-time collaborative editing
-- **Version Control**: File versioning and history
-- **Advanced Search**: AI-powered content search
-- **Mobile App**: Native iOS and Android applications
-- **API Integration**: Third-party service connections
+### Sharing System Testing
+- Verify link generation and access
+- Test permission enforcement
+- Validate expiration functionality
 
-### Scalability Improvements
-- **Microservices**: Break down into smaller services
-- **Load Balancing**: Handle increased traffic
-- **Database Sharding**: Horizontal scaling
-- **CDN Optimization**: Global content delivery
+### Cross-Browser Compatibility
+- Chrome, Firefox, Safari, Edge support
+- Mobile browser optimization
+- Progressive enhancement for older browsers
+
+## 📈 Future Enhancements
+
+- **Folder Organization**: Hierarchical file organization
+- **Collaboration Features**: Multi-user file editing
+- **Advanced Analytics**: Detailed usage statistics
+- **API Access**: REST API for third-party integrations
+- **Backup & Sync**: Automatic file backup and synchronization
 
 ## 🤝 Contributing
 
-This project was developed as a final year computer science project by Shahid Afrid. While it's primarily an academic project, contributions and suggestions are welcome for learning purposes.
+This project follows standard development practices:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Submit a pull request
 
-### Development Guidelines
-1. Follow TypeScript best practices
-2. Maintain consistent code formatting
-3. Write comprehensive tests
-4. Update documentation for new features
-5. Follow security best practices
+## 📄 License
 
-## 📝 License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-This project is developed for educational purposes as part of a final year computer science project. All rights reserved by Shahid Afrid.
+## 👨‍💻 Author
 
-## 📞 Contact
-
-**Developer**: Shahid Afrid  
-**Project Type**: Final Year Computer Science Project  
-**Institution**: [Your University Name]  
-**Year**: [Academic Year]
+**Shahid Afrid**
+- Final Year Computer Science Project
+- Focus: Modern Web Development with React and TypeScript
+- Emphasis: Security, Performance, and User Experience
 
 ---
 
-## 🎓 Academic Context
-
-This project demonstrates the practical application of modern web development technologies in building a secure, scalable file management system. It showcases:
-
-- **Full-Stack Development**: Frontend and backend integration
-- **Database Design**: Relational database modeling and optimization
-- **Security Implementation**: Authentication, authorization, and data protection
-- **User Experience Design**: Intuitive interface and responsive design
-- **Cloud Technologies**: Modern cloud-native architecture
-- **Software Engineering**: Best practices in code organization and documentation
-
-The project serves as a comprehensive example of contemporary web application development, suitable for academic evaluation and real-world deployment.
+*CloudHub represents the culmination of modern web development practices, combining cutting-edge frontend technologies with robust backend services to create a production-ready cloud storage platform.*
