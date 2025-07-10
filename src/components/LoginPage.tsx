@@ -35,11 +35,6 @@ const LoginPage = () => {
             <h1 className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               CloudHub
             </h1>
-
-<p className="text-xl text-muted-foreground">
-              By Shahid Afrid
-           </p>
-
             <p className="text-xl text-muted-foreground">
               Your secure cloud storage solution for all your files
             </p>
