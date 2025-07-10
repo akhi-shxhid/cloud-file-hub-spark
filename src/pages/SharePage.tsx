@@ -67,7 +67,13 @@ const SharePage = () => {
         return;
       }
 
-      setSharedFile(sharedLinkData);
+      // Cast the permissions to the correct type
+      const typedSharedFile: SharedFile = {
+        ...sharedLinkData,
+        permissions: sharedLinkData.permissions as 'view' | 'download'
+      };
+
+      setSharedFile(typedSharedFile);
 
       // Get file URL from storage
       const { data: urlData } = await supabase.storage

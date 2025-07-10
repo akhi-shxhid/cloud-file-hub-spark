@@ -26,6 +26,17 @@ const ShareDialog = ({ open, onOpenChange, fileId, fileName }: ShareDialogProps)
     try {
       setLoading(true);
       
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        toast({
+          title: "Authentication required",
+          description: "Please log in to share files.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
       let expiresAt = null;
       if (expiresIn !== 'never') {
         const hours = parseInt(expiresIn);
@@ -36,6 +47,7 @@ const ShareDialog = ({ open, onOpenChange, fileId, fileName }: ShareDialogProps)
         .from('shared_links')
         .insert({
           file_id: fileId,
+          user_id: user.id,
           permissions,
           expires_at: expiresAt,
         })
