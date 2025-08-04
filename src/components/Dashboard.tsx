@@ -1,19 +1,17 @@
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LogOut, Upload, User, Files, Cloud, BarChart3, Settings, Home } from 'lucide-react';
+import { LogOut, Upload, User, Files, Cloud } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import DashboardStats from './DashboardStats';
 import FileUpload from './FileUpload';
 import FileList from './FileList';
 
 const Dashboard = () => {
   const { user, signOut } = useAuth();
-  const [activeTab, setActiveTab] = useState<'overview' | 'upload' | 'files'>('overview');
+  const [activeTab, setActiveTab] = useState<'upload' | 'files'>('upload');
 
   const handleSignOut = async () => {
     try {
@@ -89,29 +87,9 @@ const Dashboard = () => {
             </Card>
           </div>
 
-          {/* Stats Dashboard */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.7 }}
-          >
-            <DashboardStats />
-          </motion.div>
-
           {/* Navigation Tabs */}
           <div className="animate-in slide-in-from-bottom duration-700 delay-100">
             <div className="flex space-x-1 bg-background/60 dark:bg-background/40 backdrop-blur-md p-1 rounded-xl border border-border/50 w-fit shadow-lg">
-              <button
-                onClick={() => setActiveTab('overview')}
-                className={`px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
-                  activeTab === 'overview'
-                    ? 'bg-background shadow-md text-foreground border border-border/50'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
-                }`}
-              >
-                <BarChart3 className="h-4 w-4 inline-block mr-2" />
-                Overview
-              </button>
               <button
                 onClick={() => setActiveTab('upload')}
                 className={`px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
@@ -139,7 +117,6 @@ const Dashboard = () => {
 
           {/* Content */}
           <div className="animate-in fade-in duration-500 delay-200">
-            {activeTab === 'overview' && <DashboardStats />}
             {activeTab === 'upload' && <FileUpload />}
             {activeTab === 'files' && <FileList />}
           </div>

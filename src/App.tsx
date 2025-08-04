@@ -6,9 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import LandingPage from "./pages/LandingPage";
-import LoginPage from "./pages/LoginPage";
-import Dashboard from "./pages/Dashboard";
+import Index from "./pages/Index";
 import SharePage from "./pages/SharePage";
 import NotFound from "./pages/NotFound";
 
@@ -23,9 +21,7 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/app" element={<Dashboard />} />
+              <Route path="/" element={<Index />} />
               <Route path="/share/:shareId" element={<SharePage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
